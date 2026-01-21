@@ -1,24 +1,32 @@
+//Question 690
 class Solution {
   public:
-    vector<int> findGreater(vector<int>& arr) {
+    vector<int> nextFreqGreater(vector<int>& arr) {
         int n = arr.size();
-        vector<int> result(n, -1); // default -1 if no greater frequency element exists
-        unordered_map<int, int> freq;
-
-        for (int x : arr) {
-            freq[x]++;
-        }
-
+        
         stack<int> st;
-
-        for (int i = 0; i < n; i++) {
-            while (!st.empty() && freq[arr[i]] > freq[arr[st.top()]]) {
-                result[st.top()] = arr[i];
+        map<int, int> mp;
+        vector<int> ans(n, -1);
+        
+        for(auto &x : arr) 
+            mp[x]++;
+        
+        st.push(arr.back());
+        
+        for(int i=n-2; i>=0; i--) {
+            while(!st.empty() && mp[st.top()] <= mp[arr[i]]) {
                 st.pop();
             }
-            st.push(i);
+            
+            if(st.empty()) {
+                ans[i] = -1;
+            } else {
+                ans[i] = st.top();
+            }
+            
+            st.push(arr[i]);
         }
-
-        return result;
+        
+        return ans;
     }
 };
