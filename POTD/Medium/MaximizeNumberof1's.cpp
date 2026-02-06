@@ -1,8 +1,9 @@
 //Question 389
+//Question 725
 class Solution {
 public:
     int maxOnes(vector<int>& arr, int k) {
-        // code here
+        // code here725        // code here
 
         stack<int> st;
         vector<int> v;
